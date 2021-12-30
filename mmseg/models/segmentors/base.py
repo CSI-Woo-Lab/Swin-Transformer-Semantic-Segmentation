@@ -235,6 +235,7 @@ class BaseSegmentor(nn.Module):
         """
         img = mmcv.imread(img)
         img = img.copy()
+        img = np.uint8(np.zeros((img.shape[0], img.shape[1], 3)))
         seg = result[0]
         if palette is None:
             if self.PALETTE is None:
@@ -243,6 +244,8 @@ class BaseSegmentor(nn.Module):
             else:
                 palette = self.PALETTE
         palette = np.array(palette)
+        #print(len(self.CLASSES))
+        #print(palette.shape)
         assert palette.shape[0] == len(self.CLASSES)
         assert palette.shape[1] == 3
         assert len(palette.shape) == 2
@@ -252,7 +255,8 @@ class BaseSegmentor(nn.Module):
         # convert to BGR
         color_seg = color_seg[..., ::-1]
 
-        img = img * 0.5 + color_seg * 0.5
+        #img = img * 0.5 + color_seg * 0.5
+        img = img + color_seg
         img = img.astype(np.uint8)
         # if out_file specified, do not show image in window
         if out_file is not None:

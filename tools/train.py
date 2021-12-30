@@ -132,8 +132,9 @@ def main():
         train_cfg=cfg.get('train_cfg'),
         test_cfg=cfg.get('test_cfg'))
 
-    logger.info(model)
-
+    #logger.info(model)
+    #print(cfg.data.train)
+    #exit()
     datasets = [build_dataset(cfg.data.train)]
     if len(cfg.workflow) == 2:
         val_dataset = copy.deepcopy(cfg.data.val)

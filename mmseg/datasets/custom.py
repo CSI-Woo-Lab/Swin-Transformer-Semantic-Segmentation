@@ -105,8 +105,8 @@ class CustomDataset(Dataset):
             if not (self.ann_dir is None or osp.isabs(self.ann_dir)):
                 self.ann_dir = osp.join(self.data_root, self.ann_dir)
             if not (self.split is None or osp.isabs(self.split)):
-                self.split = osp.join(self.data_root, self.split)
-
+                self.split = osp.join(self.data_root, self.splite)
+        
         # load annotations
         self.img_infos = self.load_annotations(self.img_dir, self.img_suffix,
                                                self.ann_dir,
@@ -150,7 +150,7 @@ class CustomDataset(Dataset):
                     seg_map = img.replace(img_suffix, seg_map_suffix)
                     img_info['ann'] = dict(seg_map=seg_map)
                 img_infos.append(img_info)
-
+        
         print_log(f'Loaded {len(img_infos)} images', logger=get_root_logger())
         return img_infos
 
@@ -237,6 +237,7 @@ class CustomDataset(Dataset):
             else:
                 gt_seg_map = mmcv.imread(
                     seg_map, flag='unchanged', backend='pillow')
+                
             gt_seg_maps.append(gt_seg_map)
         return gt_seg_maps
 

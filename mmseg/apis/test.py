@@ -71,6 +71,7 @@ def single_gpu_test(model,
 
                 ori_h, ori_w = img_meta['ori_shape'][:-1]
                 img_show = mmcv.imresize(img_show, (ori_w, ori_h))
+                #img_show = np.uint8(np.zeros((ori_w, ori_h,3)))
 
                 if out_dir:
                     out_file = osp.join(out_dir, img_meta['ori_filename'])

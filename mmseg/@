@@ -10,8 +10,6 @@ from mmseg.core import DistEvalHook, EvalHook
 from mmseg.datasets import build_dataloader, build_dataset
 from mmseg.utils import get_root_logger
 
-import torchvision
-
 
 def set_random_seed(seed, deterministic=False):
     """Set random seed.
@@ -55,13 +53,13 @@ def train_segmentor(model,
             seed=cfg.seed,
             drop_last=True) for ds in dataset
     ]
-    '''
+    
     for data in data_loaders[0]:
-        torchvision.utils.save_image(data["img"].data[0][0], "test.png")
-        print(data["img"].data[0][0].shape)
-        #print(data["gt_semantic_seg"].data[0].shape)
+        print(data["img"].data[0].shape)
+        print(data["gt_semantic_seg"].data[0][0])
         exit()
-    '''
+    
+
     # put model on gpus
     if distributed:
         find_unused_parameters = cfg.get('find_unused_parameters', False)
